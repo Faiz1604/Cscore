@@ -1,0 +1,14 @@
+.heading{
+    color: aliceblue;
+    background-color: #0a3e3e;
+}
+input{
+    background-color: #2c7564;
+    color: white;
+    margin-top: 33px;
+    margin-bottom: 33px;
+  }
+
+body{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

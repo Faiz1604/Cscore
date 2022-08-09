@@ -1,0 +1,18 @@
+.teamListContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.submitButton{
+    margin-left: 35%;
+    margin-top: 10px;
+    width: 30%;
+}
+
+@media screen and (min-width:768px) {
+    .app-container{
+      width: 50%;
+      height: 90vh;
+    }
+    
+  }

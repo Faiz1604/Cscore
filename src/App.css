@@ -1,0 +1,27 @@
+body{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: #ffffff;
+}
+
+.heading{
+  color: aliceblue;
+  background-color: #0a3e3e;
+  text-align: center;
+  height: fit-content;
+}
+input{
+  margin-top: 33px;
+  margin-bottom: 33px;
+}
+@media screen and (min-width:768px) {
+  body{
+   background-color: #09525269;
+  }
+  .app-container{
+    width: 50%;
+    background-color: aliceblue;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+  
+}

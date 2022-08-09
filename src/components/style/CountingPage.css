@@ -1,0 +1,98 @@
+.scorecard{
+    width: 100%;
+    height:fit-content;
+    background-color: #095252;
+    color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+}
+.score{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-between;
+}
+
+.run-btns{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.scoreupdate-btn{
+    border-radius: 70%;
+    margin-left: 2px;
+    margin-top: 10px;
+}
+#popupforcaught{
+    color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #095252;
+    width: 50%;
+    height: 200px;
+    border-radius: 5px;
+    display: none;
+    position: relative;
+    top: -200px;
+    left: 25%;
+    z-index: 10;
+}
+#updatebyeruns-btn{
+    border-radius: 70%;
+}
+.selecting-batters{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+thead{
+    background-color: #095252;
+    color: aliceblue;
+}
+option{
+    color: black;
+}
+select{
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #095252;
+}
+select:focus{
+    outline: 5px #095252;
+}
+#scoreboardbtn{
+    background-color: #095252;
+    color: aliceblue;
+}
+#stats{
+    display: none;
+}
+#runoverinstats{
+    text-align: center;
+    background-color: #095252;
+    color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+}
+#runoutdropdown{
+    background-color: #095252;
+    position: relative;
+    width: 50%;
+    height:15vh;
+    margin-left: 25%;
+    display: none;
+    z-index: 10;
+}
+.tables{
+    background-color: aliceblue;
+}
+@media screen and (min-width:768px) {
+    .app-container{
+      width: 50%;
+      background-color: aliceblue;
+    }
+    
+  }
