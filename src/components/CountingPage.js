@@ -25,7 +25,7 @@ const CountingPage = (props) => {
     html2pdf()
       .set({ html2canvas: { scale: 4 }, margin: [10, 10, 5, 10] })
       .from(element)
-      .save();
+      .save(`${props.team1} vs ${props.team2}.pdf`);
   }
   window.onbeforeunload = function () {
     return "are you sure you want to leave?";
