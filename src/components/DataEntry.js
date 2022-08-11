@@ -19,10 +19,6 @@ export default function DataEntry(props) {
   window.onbeforeunload = function() {
     return "Dude, are you sure you want to leave? Think of the kittens!";
 }
-//function run after load
-window.onload = ()=>{
-  window.location ='/'
-}
 //to select team to enter team's players
 const selectTeamChange = (event)=>{
  setSelectTeam(event.target.value)
