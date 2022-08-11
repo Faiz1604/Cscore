@@ -50,6 +50,7 @@ const onOverChange = (event)=>{
   return (
     <>
     <div className="container app-container">
+    <h1>Cricket Score  Counter</h1>
    <div className="">
     {<h1 className ="heading">{props.team1.toUpperCase()} <i>vs</i> {props.team2.toUpperCase()}</h1>}
     <div className="container">
