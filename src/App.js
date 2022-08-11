@@ -41,9 +41,11 @@ function App() {
       <Routes>
         <Route path = "/" key={0} element={<>
           <Navbar/>
-          <h1 className="text-center heading">Cricket Score  Counter</h1>
       <div className="container app-container" style={{height:'90vh'}}>
+        <>
+        <h1 className="text-center heading">Cricket Score  Counter</h1>
       <h1 className = "text-center heading">Enter Teams Name</h1>
+      </>
         <h3 className = "text-center">{teamOne.toUpperCase()}</h3>
         <input
           type="text"
