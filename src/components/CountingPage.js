@@ -279,10 +279,12 @@ const CountingPage = (props) => {
       {/*main layout started from here */}
 
       <div className=" container main app-container"  style={{height:'100%'}}>
-        {
+        {<>
+          <h1 className="text-center heading">Cricket Score  Counter</h1>
           <h1 className="heading" style={{ marginTop: "20px" }}>
             {props.team1.toUpperCase()} <i>vs</i> {props.team2.toUpperCase()}
           </h1>
+          </>
         }
         {/* //select team for batting and bowler for bowling */}
 
