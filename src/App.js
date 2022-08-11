@@ -43,7 +43,7 @@ function App() {
           <Navbar/>
       <div className="container app-container" style={{height:'90vh'}}>
         <>
-        <h1 className="text-center heading">Cricket Score  Counter</h1>
+        <h1 className="text-center heading">Cricket Score Counter</h1>
       <h1 className = "text-center heading">Enter Teams Name</h1>
       </>
         <h3 className = "text-center">{teamOne.toUpperCase()}</h3>
