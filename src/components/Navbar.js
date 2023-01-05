@@ -1,14 +1,18 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 const Navbar = () => {
+  function setNewGame(){
+    window.location="/"
+    sessionStorage.clear();
+  }
   return (
     <div className="container">
-      <nav class="navbar navbar-expand-lg navbar-dark px-3" style={{backgroundColor:'#095252',marginBottom:'30px',fontFamily:'New Times Roman'}}>
-        <Link class="navbar-brand" to="/">
+      <nav className="navbar navbar-expand-lg navbar-dark px-3" style={{backgroundColor:'#095252',marginBottom:'30px',fontFamily:'New Times Roman'}}>
+        <Link className="navbar-brand" to="/">
           Cscore <span>&#127951;</span>
         </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -19,26 +23,31 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
               <Link className="nav-link" to="/">
                 Home
               </Link>
             </li>
-            <li class="nav-item active">
+            <li className="nav-item active">
               <Link className="nav-link" to="/guide">
                 Guide
               </Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link className="nav-link" to="/about">
                 About
               </Link>
             </li>
             </ul>
         </div>
+        <div className="nav-item">
+        <button className="nav-link" style={{border:"0px",backgroundColor:"#095252",color:"white",fontSize:"xx-large"}}
+        onClick={setNewGame}>+</button>
+      </div>
       </nav>
+      
     </div>
   );
 };
