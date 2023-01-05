@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState,useEffect } from "react";
 import "./style/CountingPage.css";
 import html2pdf from "html2pdf.js";
 const CountingPage = (props) => {
@@ -14,8 +14,37 @@ const CountingPage = (props) => {
   const [nonStriker, setNonStriker] = useState("");
   const [batStats, setBatStats] = useState([]);
   const [bowlStats, setBowlStats] = useState([]);
+  
+  useEffect(()=>{
+    let sessionData = sessionStorage.getItem('fullStats');
+    if (sessionData){
+    const parsedData = JSON.parse(sessionData);
+    setThisOver(parsedData.lThisOver);
+    setRuns(parsedData.lruns);
+    setWickets(parsedData.lwickets);
+    setOver(parsedData.lover);
+    setBattingTeam(parsedData.lbattingTeam);
+    setBallCount(parsedData.lballCount);
+    setCurrentBowler(parsedData.lcurrentBowler);
+    setStriker(parsedData.lstriker);
+    setNonStriker(parsedData.lnonStriker);
+    setBatStats(parsedData.lbatStats);
+    setBowlStats(parsedData.lbowlStats);
+    }
+  },[])
+  //set data in session storage
+  function setStats(){
+   var setFullStat = {lThisOver:thisOver,lruns:runs,lwickets:wickets,lover:over,lbattingTeam:battingTeam,lballCount:ballCount,lcurrentBowler:currentBowler,lstriker:striker,lnonStriker:nonStriker,lbatStats:batStats,lbowlStats:bowlStats}
+    sessionStorage.setItem(
+      "fullStats",
+      JSON.stringify(setFullStat)
+    );
+  }
+  window.onbeforeunload = function(event) {
 
-  //function tp download pdf
+    setStats();
+}
+//function tp download pdf
   function generatePDF() {
     showScoreBoard();
     // Choose the element that our invoice is rendered in.
@@ -27,12 +56,9 @@ const CountingPage = (props) => {
       .from(element)
       .save(`${props.team1} vs ${props.team2}.pdf`);
   }
-  window.onbeforeunload = function () {
-    return "are you sure you want to leave?";
-  };
-  window.onload = () => {
-    window.location = "/";
-  };
+  // window.onload = () => {
+  //   window.location = "/";
+  // };
 
   //functions to disabled button if any condition is not true
 
@@ -55,11 +81,13 @@ const CountingPage = (props) => {
   //function to select batting team
   const selectBattingTeam = (event) => {
     setBattingTeam(event.target.value);
+    
   };
   //selecting of bowler
   const changeBowler = (event) => {
     setCurrentBowler(event.target.value.split(" ")[0]);
     updateBowlStatsArray(event.target.value);
+    
   };
   //function to update ball count and update running overs and update other function that flow with every ball//
   const updateBall = (thisOverBalls) => {
@@ -85,6 +113,7 @@ const CountingPage = (props) => {
       if (Number(runPerBall) === 1 || Number(runPerBall) === 3) {
         setStriker(nonStriker);
         setNonStriker(striker);
+        ;
       }
     }
     // if (
@@ -106,6 +135,7 @@ const CountingPage = (props) => {
   const onStrike = (event) => {
     if (event.target.value !== nonStriker) setStriker(event.target.value);
     updateBatStatsArray(event.target.value);
+    
   };
   //selecting non striker
   const onNonStrike = (event) => {
@@ -113,6 +143,7 @@ const CountingPage = (props) => {
       setNonStriker(event.target.value);
       updateBatStatsArray(event.target.value);
     }
+    
   };
   //updating batStatsArray
   const updateBatStatsArray = (batname) => {
@@ -279,8 +310,9 @@ const CountingPage = (props) => {
       {/*main layout started from here */}
 
       <div className=" container main app-container"  style={{height:'100%'}}>
-        {<>
-          <h1 className="text-center heading">Cricket Score  Counter Is Live </h1>
+        {
+          <>
+          <h1 className="text-center heading">Cricket Score  Counter</h1>
           <h1 className="heading" style={{ marginTop: "20px" }}>
             {props.team1.toUpperCase()} <i>vs</i> {props.team2.toUpperCase()}
           </h1>
@@ -447,7 +479,7 @@ const CountingPage = (props) => {
         <div id="runoutdropdown" className="my-3">
           <label htmlFor="select-run-out">Select Out Batsman</label> <br />
           <select id="select-run-out" onChange={runOut}>
-            <option selected hidden></option>
+            <option  hidden></option>
             <option value={striker}>{striker}</option>
             <option value={nonStriker}>{nonStriker}</option>
           </select>
@@ -459,6 +491,7 @@ const CountingPage = (props) => {
               setRuns(Number(runs) + Number(1));
               zeroThisOverUpdate("wd");
               updateBowlingStats("wd");
+              
             }}
             disabled={disableButton()}
           >
@@ -470,6 +503,7 @@ const CountingPage = (props) => {
               setRuns(Number(runs) + Number(1));
               zeroThisOverUpdate("N");
               updateBowlingStats("N");
+              
             }}
             disabled={disableButton()}
           >
@@ -482,6 +516,7 @@ const CountingPage = (props) => {
               updateBall("0");
               updateBatsmanStats("0");
               updateBowlingStats("0");
+              
             }}
             disabled={disableButton()}
           >
@@ -494,6 +529,7 @@ const CountingPage = (props) => {
               updateBall("1");
               updateBatsmanStats("1");
               updateBowlingStats("1");
+              
             }}
             disabled={disableButton()}
           >
@@ -506,6 +542,7 @@ const CountingPage = (props) => {
               updateBall("2");
               updateBatsmanStats("2");
               updateBowlingStats("2");
+              
             }}
             disabled={disableButton()}
           >
@@ -518,6 +555,7 @@ const CountingPage = (props) => {
               updateBall("3");
               updateBatsmanStats("3");
               updateBowlingStats("3");
+              
             }}
             disabled={disableButton()}
           >
@@ -530,6 +568,7 @@ const CountingPage = (props) => {
               updateBall("4");
               updateBatsmanStats("4");
               updateBowlingStats("4");
+              
             }}
             disabled={disableButton()}
           >
@@ -542,6 +581,7 @@ const CountingPage = (props) => {
               updateBall("6");
               updateBatsmanStats("6");
               updateBowlingStats("6");
+              
             }}
             disabled={disableButton()}
           >
@@ -560,6 +600,7 @@ const CountingPage = (props) => {
                   x.out = true;
                 }
               }
+              
             }}
             disabled={disableButton()}
           >
@@ -570,6 +611,7 @@ const CountingPage = (props) => {
             onClick={() => {
               caughtOut();
               updateBowlingStats("c");
+              
             }}
             disabled={disableButton()}
           >
@@ -579,6 +621,7 @@ const CountingPage = (props) => {
             className="btn btn-danger btn-small scoreupdate-btn"
             onClick={() => {
               visibleRunoutOption();
+              
             }}
             disabled={disableButton()}
           >

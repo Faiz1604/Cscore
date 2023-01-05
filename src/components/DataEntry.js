@@ -14,9 +14,9 @@ export default function DataEntry(props) {
     team1Players:team1Players,
     team2Players:team2Players
   }
-  
   //prevent reload function
-  window.onbeforeunload = function() {
+  window.onbeforeunload = function(event) {
+
     return "Dude, are you sure you want to leave? Think of the kittens!";
 }
 //to select team to enter team's players
