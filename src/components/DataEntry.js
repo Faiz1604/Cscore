@@ -1,30 +1,55 @@
-import {React,useState}from 'react'
+import {React,useState,useEffect}from 'react'
 // import {props} from 'react'
 import './style/DataEntry.css'
 import {Link} from 'react-router-dom';
 export default function DataEntry(props) {
   //states used in this components
   const [selectTeam,setSelectTeam] = useState("select team to enter player names")
-  const [overs,setOvers] = useState("5")
+  const [overs,setOvers] = useState("0")
   const [team1Players,setTeam1Players]=useState([])
   const [team2Players,setTeam2Players]=useState([])
   //data that will send to parent component
+  
   let data = {
     overs:overs,
     team1Players:team1Players,
     team2Players:team2Players
   }
-  //prevent reload function
+  //getting data from session storage
+  useEffect(()=>{
+    var sdataEntry = sessionStorage.getItem("dataEntry");
+    if(sdataEntry){
+      var parsedDataEntry = JSON.parse(sdataEntry);
+      setSelectTeam(parsedDataEntry.sselectTeam);
+      setOvers(parsedDataEntry.sovers);
+      setTeam1Players(parsedDataEntry.steam1Players);
+      setTeam2Players(parsedDataEntry.steam2Players);
+    }
+  },[])
+  //setting data to session storage
+  function setDataEntry (){
+    const fullData = {sselectTeam:selectTeam,sovers:overs,steam1Players:team1Players,steam2Players:team2Players}
+    sessionStorage.setItem("dataEntry",JSON.stringify(fullData))
+  }
+setTimeout(() => {
+  setDataEntry()
+}, 1000);
   window.onbeforeunload = function(event) {
-
-    return "Dude, are you sure you want to leave? Think of the kittens!";
+    setDataEntry();
 }
+
+//   //prevent reload function
+//   window.onbeforeunload = function(event) {
+
+//     return "Dude, are you sure you want to leave? Think of the kittens!";
+// }
 //to select team to enter team's players
 const selectTeamChange = (event)=>{
+  setDataEntry();
  setSelectTeam(event.target.value)
 }
 //submit players
-const submitPlayers = ()=>{
+const submitPlayers = (e)=>{
   const values = document.getElementById('playertext').value;
   const valueArray= values.split(",")
   if(selectTeam===props.team1){
@@ -37,7 +62,7 @@ const submitPlayers = ()=>{
     document.getElementById('playertext').value= ""
     setSelectTeam(props.team1)
   }
-
+  setDataEntry();
 }
 //select overs
 const onOverChange = (event)=>{
@@ -55,7 +80,7 @@ const onOverChange = (event)=>{
       <label htmlFor="over">Overs</label>
       {/* select overs passing props as string*/}
       <select className="form-select" id="over" onChange={onOverChange}>
-        <option value ='5'>5</option>
+        <option value ={overs}>{overs}</option>
         <option value ='10'>10</option>
         <option value ='15'>15</option>
         <option value ='20'>20</option>
@@ -64,7 +89,7 @@ const onOverChange = (event)=>{
     </div>
     {/* selecting teams in dropdown option */}
     <select className="form-select" onChange={selectTeamChange}>
-      <option hidden>Select team To Enter Players Names</option>
+      <option hidden>{selectTeam}</option>
       <option value={props.team1}>{props.team1}</option>
       <option value={props.team2}>{props.team2}</option>
     </select>
