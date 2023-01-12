@@ -8,10 +8,7 @@ const Navbar = () => {
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-dark px-3" style={{backgroundColor:'#095252',marginBottom:'30px',fontFamily:'New Times Roman'}}>
-        <Link className="navbar-brand" to="/">
-          Cscore <span>&#127951;</span>
-        </Link>
-        <button
+      <button
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -23,8 +20,12 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
+          <Link className="navbar-brand" to="/">
+          Cscore <span>&#127951;</span>
+        </Link>
           <li className="nav-item">
               <Link className="nav-link" to="/">
                 Home
@@ -43,8 +44,8 @@ const Navbar = () => {
             </ul>
         </div>
         <div className="nav-item">
-        <button className="nav-link" style={{border:"0px",backgroundColor:"#095252",color:"white",fontSize:"xx-large"}}
-        onClick={setNewGame}>+</button>
+        <button className="nav-link" style={{border:"0px",backgroundColor:"#095252",color:"white",fontSize:"large"}}
+        onClick={setNewGame}>new+</button>
       </div>
       </nav>
       

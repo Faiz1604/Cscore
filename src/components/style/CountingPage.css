@@ -71,6 +71,9 @@ select:focus{
     display: none;
 }
 #runoverinstats{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     text-align: center;
     background-color: #095252;
     color: aliceblue;

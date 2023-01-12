@@ -14,6 +14,7 @@ const CountingPage = (props) => {
   const [nonStriker, setNonStriker] = useState("");
   const [batStats, setBatStats] = useState([]);
   const [bowlStats, setBowlStats] = useState([]);
+  const [inningStatus, setInningStatus] = useState({inning:1,target:null,runRate:0,reqRunRate:0});
   
   useEffect(()=>{
     let sessionData = sessionStorage.getItem('fullStats');
@@ -30,18 +31,59 @@ const CountingPage = (props) => {
     setNonStriker(parsedData.lnonStriker);
     setBatStats(parsedData.lbatStats);
     setBowlStats(parsedData.lbowlStats);
+    setInningStatus(parsedData.lInningStatus)
     }
   },[])
+  //set runrate and required run rate.
+  useEffect(()=>{
+    if(runs>0 && (ballCount>0 || over>0)){
+      let ball = (over*6)+ ballCount
+      let currentRunrate = ((Number(runs)/ball)*6).toFixed(2);
+      setInningStatus({...inningStatus,runRate:currentRunrate})
+      
+      if(inningStatus.inning===2){
+        let remainingBall = (Number(props.overs)*6)-((Number(over)*6)+ballCount)
+         
+        let requiredRunRate = (((inningStatus.target-runs)/remainingBall)*6).toFixed(2);
+        setInningStatus({...inningStatus,reqRunRate:requiredRunRate,runRate:currentRunrate})
+      }
+    }
+
+  },[runs,ballCount,over,thisOver])
+  // eslint-disable-next-line
+  const changeInning = ()=>{
+    if(inningStatus.inning===1){
+      const firstInningRun = runs;
+      setInningStatus({...inningStatus,inning:2,target:firstInningRun+1,runRate:0});
+      // eslint-disable-next-line
+      setThisOver([]);
+      setRuns(0);
+      setWickets(0);
+      setOver(0);
+      setBallCount(0);
+      setCurrentBowler("");
+      setStriker("");
+      setNonStriker("");
+      setBatStats([]);
+      setBowlStats([]);
+      sessionStorage.removeItem("fullStats");
+      }
+    else{
+      alert("you can't change This is 2nd Inning")
+    }
+    setStats();
+    
+  }
   //set data in session storage
   function setStats(){
-   var setFullStat = {lThisOver:thisOver,lruns:runs,lwickets:wickets,lover:over,lbattingTeam:battingTeam,lballCount:ballCount,lcurrentBowler:currentBowler,lstriker:striker,lnonStriker:nonStriker,lbatStats:batStats,lbowlStats:bowlStats}
+   var setFullStat = {lThisOver:thisOver,lruns:runs,lwickets:wickets,lover:over,lbattingTeam:battingTeam,lballCount:ballCount,lcurrentBowler:currentBowler,lstriker:striker,lnonStriker:nonStriker,lbatStats:batStats,lbowlStats:bowlStats,lInningStatus:inningStatus}
     sessionStorage.setItem(
       "fullStats",
       JSON.stringify(setFullStat)
     );
   }
   window.onbeforeunload = function(event) {
-
+    
     setStats();
 }
 //function tp download pdf
@@ -106,6 +148,7 @@ const CountingPage = (props) => {
       setThisOver(newThisOver);
     }
     updateStriker(thisOverBalls);
+    setStats();
   };
   // function to change strikers;
   const updateStriker = (runPerBall) => {
@@ -670,7 +713,10 @@ const CountingPage = (props) => {
           >
             Download Scoreboard
           </button>
+          <button id="scoreboardbtn"
+            className="btn mx-2" onClick={changeInning}>2nd Inning</button>
         </div>
+        {/* scoreboard */}
         <div id="stats" className="container">
           <h1 className="heading">
             {props.team1.toUpperCase()} <i>vs</i> {props.team2.toUpperCase()}
@@ -680,6 +726,9 @@ const CountingPage = (props) => {
               {runs}/{wickets < 10 ? wickets : "All Out"} ({over}.{ballCount}/
               {props.overs})
             </h3>
+            <h6>{inningStatus.inning===1?"1st inning":"Target : "}{inningStatus.target}</h6>
+            <h6> RR : {inningStatus.runRate}</h6>
+            <h6>{inningStatus.inning===2?"   Req. RR : ":""}{ inningStatus.inning===2?inningStatus.reqRunRate:""}</h6>
           </div>
           <h1>{battingTeam.toUpperCase()} Batting</h1>
           <table id="battingstats" className="table table-hover text-center">

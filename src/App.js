@@ -75,11 +75,11 @@ function App() {
   return (
     <>
       <Router>
-      <Navbar/>
+      <Navbar key={'10'}/>
         <Routes>
           <Route
             path="/"
-            key={0}
+            key={'0'}
             element={
               <>
 
@@ -129,7 +129,7 @@ function App() {
             path="/enterdata"
             element={
               <DataEntry
-                key={1}
+                key={'1'}
                 team1={teamOne}
                 team2={teamTwo}
                 sendDataToApp={sendDataToApp}
@@ -140,7 +140,7 @@ function App() {
             path="/count"
             element={
               <CountingPage
-                key={2}
+                key={'2'}
                 team1={teamOne}
                 team2={teamTwo}
                 overs={overs}
@@ -151,8 +151,8 @@ function App() {
               />
             }
           ></Route>
-          <Route path="/guide" element={<Guide key={3} />}></Route>
-          <Route path="/about" element={<Guide />}></Route>
+          <Route path="/guide" element={<Guide key={'3'} />}></Route>
+          <Route path="/about" element={<Guide  key={'4'}/>}></Route>
         </Routes>
       </Router>
     </>
